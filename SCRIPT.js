@@ -1,5 +1,5 @@
 const APP = {
-  ver: "1.2.0",
+  ver: "1.2.8",
   user: {
     id: 0
   },
@@ -54,172 +54,208 @@ const playAudio = src => {
 
 class UI {
   static init() {
-    const panel = document.createElement("div");
-    panel.id = "khanDestroyer-panel";
-    panel.innerHTML = `
-      <style>
-        #khanDestroyer-panel {
-          position: fixed;
-          top: 20px;
-          right: 20px;
-          width: 260px;
-          max-width: 90vw;
-          background: rgba(24, 24, 24, 0.85);
-          backdrop-filter: blur(10px);
-          border-radius: 18px;
-          padding: 16px;
-          z-index: 9999;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          font-family: 'Segoe UI', sans-serif;
-          color: #fff;
-          transition: all 0.3s ease;
-        }
-        .khan-header {
-          font-size: 22px;
-          font-weight: 700;
-          margin-bottom: 14px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          user-select: none;
-        }
-        .khan-toggle {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin: 12px 0;
-        }
-        .khan-label {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          font-size: 15px;
-        }
-        .khan-switch {
-          position: relative;
-          display: inline-block;
-          width: 48px;
-          height: 24px;
-        }
-        .khan-switch input {
-          opacity: 0;
-          width: 0;
-          height: 0;
-        }
-        .khan-slider {
-          position: absolute;
-          cursor: pointer;
-          top: 0; left: 0; right: 0; bottom: 0;
-          background: #444;
-          border-radius: 24px;
-          transition: .3s;
-        }
-        .khan-slider:before {
-          content: "";
-          position: absolute;
-          height: 18px; width: 18px;
-          left: 3px; bottom: 3px;
-          background: white;
-          border-radius: 50%;
-          transition: .3s;
-        }
-        .khan-switch input:checked + .khan-slider {
-          background: linear-gradient(135deg, #8e2de2, #4a00e0);
-        }
-        .khan-switch input:checked + .khan-slider:before {
-          transform: translateX(24px);
-        }
-        .khan-speed {
-          margin-top: 16px;
-        }
-        .khan-speed input[type="range"] {
-          width: 100%;
-          accent-color: #8e2de2;
-        }
-        .khan-footer {
-          font-size: 11px;
-          text-align: center;
-          margin-top: 14px;
-          opacity: 0.6;
-        }
-        .khan-collapse-btn {
-          background: none;
-          border: none;
-          color: #aaa;
-          font-size: 18px;
-          cursor: pointer;
-          transition: color 0.2s;
-        }
-        .khan-collapse-btn:hover {
-          color: #fff;
-        }
-        .khan-collapsed #khanBody {
-          display: none;
-        }
-        .khan-collapsed {
-          width: 60px !important;
-          height: auto;
-          padding: 12px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-        .khan-collapsed .khan-header {
-          flex-direction: column;
-          font-size: 16px;
-          gap: 4px;
-        }
-      </style>
-
-      <div class="khan-header">
-        <span>🚀</span>
-        <button class="khan-collapse-btn" title="Minimizar painél">☰</button>
-      </div>
-
-      <div id="khanBody">
-        <div class="khan-toggle">
-          <div class="khan-label" title="Auto Complete">🤖 Auto Complete</div>
-          <label class="khan-switch">
-            <input type="checkbox" id="autoCheck">
-            <span class="khan-slider"></span>
-          </label>
-        </div>
-
-        <div class="khan-toggle">
-          <div class="khan-label" title="Question Spoof">🎭 Question Spoof</div>
-          <label class="khan-switch">
-            <input type="checkbox" id="spoofCheck" checked>
-            <span class="khan-slider"></span>
-          </label>
-        </div>
-
-        <div class="khan-toggle">
-          <div class="khan-label" title="Dark Mode">🌙 Dark Mode</div>
-          <label class="khan-switch">
-            <input type="checkbox" id="darkModeCheck" checked>
-            <span class="khan-slider"></span>
-          </label>
-        </div>
-
-        <div class="khan-speed" id="speedControlContainer" style="display:none;">
-          <label for="speedSlider">⏱️ Velocidade</label>
-          <input type="range" min="0" max="3" value="0" id="speedSlider">
-          <div id="speedValue" style="text-align:right;font-size:12px;opacity:0.6;">750ms</div>
-        </div>
-
-        <div class="khan-footer">💻 por @iUnknownBr</div>
-      </div>
-    `;
-
-    document.body.appendChild(panel);
-
-    // Botão colapsar
-    const collapseBtn = panel.querySelector(".khan-collapse-btn");
-    collapseBtn.addEventListener("click", () => {
-      panel.classList.toggle("khan-collapsed");
+    const _0x3d849d = document.createElement("div");
+    _0x3d849d.id = "khanDestroyer-panel";
+    Object.assign(_0x3d849d.style, {
+      position: "fixed",
+      top: "10px",
+      right: "15px",
+      width: "200px",
+      background: "linear-gradient(145deg, #1a1a1a, #111)",
+      borderRadius: "12px",
+      display: "flex",
+      flexDirection: "column",
+      padding: "12px",
+      zIndex: "9999",
+      boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
+      border: "1px solid #333",
+      maxWidth: "90%"
     });
-
+    _0x3d849d.innerHTML = `
+            <style>
+                .khandestroyer-header {
+                    color: #fff;
+                    font-size: 18px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin-bottom: 10px;
+                    padding-bottom: 10px;
+                    border-bottom: 1px solid #333;
+                    cursor: pointer;
+                    user-select: none;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .khandestroyer-header:after {
+                    content: "▼";
+                    font-size: 12px;
+                    margin-left: 5px;
+                    transition: transform 0.3s ease;
+                }
+                .khandestroyer-header.collapsed:after {
+                    transform: rotate(-90deg);
+                }
+                .khandestroyer-content {
+                    transition: max-height 0.3s ease, opacity 0.3s ease;
+                    max-height: 500px;
+                    opacity: 1;
+                    overflow: hidden;
+                }
+                .khandestroyer-content.collapsed {
+                    max-height: 0;
+                    opacity: 0;
+                }
+                .khandestroyer-version {
+                    color: #666;
+                    font-size: 12px;
+                    font-weight: normal;
+                }
+                .khandestroyer-opt {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    color: #fff;
+                    padding: 8px;
+                    margin: 3px 0;
+                }
+                .switch {
+                    position: relative;
+                    display: inline-block;
+                    width: 44px;
+                    height: 22px;
+                }
+                .switch input {
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+                }
+                .slider {
+                    position: absolute;
+                    cursor: pointer;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-color: #333;
+                    transition: .4s;
+                    border-radius: 22px;
+                }
+                .slider:before {
+                    position: absolute;
+                    content: "";
+                    height: 18px;
+                    width: 18px;
+                    left: 2px;
+                    bottom: 2px;
+                    background-color: white;
+                    transition: .4s;
+                    border-radius: 50%;
+                }
+                input:checked + .slider {
+                    background: linear-gradient(145deg, #6200ea, #7c4dff);
+                }
+                input:checked + .slider:before {
+                    transform: translateX(22px);
+                }
+                .khandestroyer-credit {
+                    color: #666;
+                    font-size: 11px;
+                    text-align: center;
+                    margin-top: 10px;
+                    padding-top: 10px;
+                    border-top: 1px solid #333;
+                }
+                .speed-slider-container {
+                    width: 100%;
+                    margin-top: 5px;
+                    padding: 0 2px;
+                    box-sizing: border-box;
+                    overflow: visible;
+                }
+                .speed-slider {
+                    -webkit-appearance: none;
+                    width: 100%;
+                    height: 8px;
+                    border-radius: 5px;
+                    background: #333;
+                    outline: none;
+                    margin: 10px 0;
+                }
+                .speed-slider::-webkit-slider-thumb {
+                    -webkit-appearance: none;
+                    appearance: none;
+                    width: 18px;
+                    height: 18px;
+                    border-radius: 50%;
+                    background: linear-gradient(145deg, #6200ea, #7c4dff);
+                    cursor: pointer;
+                }
+                .speed-slider::-moz-range-thumb {
+                    width: 18px;
+                    height: 18px;
+                    border-radius: 50%;
+                    background: linear-gradient(145deg, #6200ea, #7c4dff);
+                    cursor: pointer;
+                    border: none;
+                }
+                .speed-value {
+                    display: none;
+                }
+                /* Removendo as classes relacionadas às marcações de velocidade */
+                .speed-ticks {
+                    display: none;
+                }
+                .speed-tick {
+                    display: none;
+                }
+                .speed-ticks {
+                    padding: 0;
+                }
+                .speed-tick {
+                    font-size: 7px;
+                }
+                }
+            </style>
+            <div class="khandestroyer-header">
+                khandestroyer <span class="khandestroyer-version">${APP.ver}</span>
+            </div>
+            <div class="khandestroyer-content">
+                <div class="khandestroyer-opt">
+                    <span>Auto Complete</span>
+                    <label class="switch">
+                        <input type="checkbox" id="autoCheck">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="khandestroyer-opt">
+                    <span>Question Spoof</span>
+                    <label class="switch">
+                        <input type="checkbox" id="spoofCheck" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="khandestroyer-opt">
+                    <span>Modo Escuro</span>
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeCheck" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="khandestroyer-opt" id="speedControlContainer" style="display: none;">
+                    <span>Velocidade</span>
+                    <div style="width: 100%; display: flex; align-items: center; padding-left: 10px; box-sizing: border-box;">
+                        <div class="speed-slider-container">
+                            <input type="range" min="0" max="3" value="0" class="speed-slider" id="speedSlider">
+                            <div class="speed-value" id="speedValue" style="display: none;">750ms</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="khandestroyer-credit">Feito Por Ruan.nxxp</div>
+            </div>
+        `;
+    document.body.appendChild(_0x3d849d);
+    
     // Adicionar evento de clique ao cabeçalho para encolher/expandir o menu
     const header = document.querySelector('.khandestroyer-header');
     const content = document.querySelector('.khandestroyer-content');
@@ -247,7 +283,7 @@ class UI {
     document.getElementById("autoCheck").onchange = event => {
       APP.cfg.auto = event.target.checked;
       document.getElementById("speedControlContainer").style.display = APP.cfg.auto ? "flex" : "none";
-      sendToast(APP.cfg.auto ? "✅ Auto Complete Enabled" : "❌ Auto Complete Disabled", 2000);
+      sendToast(APP.cfg.auto ? "✅ Atividades Automáticas Habilitado" : "❌ Atividades Automáticas desabilitado", 2000);
     };
     
     // Configurar o slider de velocidade
@@ -284,10 +320,10 @@ class UI {
       if (typeof DarkReader !== 'undefined') {
         if (APP.cfg.darkMode) {
           DarkReader.enable();
-          sendToast("🌑 Dark Mode Enabled", 2000);
-        } else {
+          sendToast("🌑 Modo Escuro Habilitado", 2000);
+        } else {Enable
           DarkReader.disable();
-          sendToast("☀️ Dark Mode Disabled", 2000);
+          sendToast("☀️ Modo Escuro Desabilitado", 2000);
         }
       } else {
         console.error("DarkReader não está disponível");
@@ -340,8 +376,7 @@ class Core {
   
   static setupMod() {
     const messages = [
-      "🔥 Siga No Insta: [Insta](https://www.instagram.com/ruan.nxxp?igsh=MWYwNTZhb3A2cnpxag==)!",
-      "🤍 Feito com amor e carinho por [Ruan](https://www.instagram.com/ruan.nxxp?igsh=MWYwNTZhb3A2cnpxag==)."
+      "🤍 Feito Por [@ruan.nxxp](https://www.instagram.com/ruan.nxxp?igsh=MWYwNTZhb3A2cnpxag==)."
     ];
     
     const originalFetch = window.fetch;
@@ -384,7 +419,7 @@ class Core {
             };
             
             _0x3cbec8.data.assessmentItem.item.itemData = JSON.stringify(_0x3ca1c5);
-            sendToast("🔓 Pergunta ignorada", 1000);
+            sendToast("🔓 Questão Bypass", 1000);
             
             const _0x1aa163 = {
               status: _0x238f50.status,
@@ -411,7 +446,7 @@ class Core {
       if (element) {
         element.click();
         if (element.textContent === "Mostrar resumo") {
-          sendToast("🎉 Exercício completo!", 3000);
+          sendToast("🎉 Exercício Completo!", 3000);
           playAudio("https://r2.e-z.host/4d0a0bea-60f8-44d6-9e74-3032a64a9f32/4x5g14gj.wav");
         }
       }
