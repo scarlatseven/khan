@@ -419,7 +419,7 @@ class Core {
             };
             
             _0x3cbec8.data.assessmentItem.item.itemData = JSON.stringify(_0x3ca1c5);
-            sendToast("🔓 Questão Bypass", 1000);
+            sendToast("🔓 Questão Pulada", 1000);
             
             const _0x1aa163 = {
               status: _0x238f50.status,
