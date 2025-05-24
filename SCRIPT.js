@@ -56,44 +56,45 @@ class UI {
   static init() {
     const panel = document.createElement("div");
     panel.id = "khanDestroyer-panel";
-    Object.assign(panel.style, {
-      position: "fixed",
-      top: "20px",
-      right: "20px",
-      width: "240px",
-      background: "rgba(18, 18, 18, 0.75)",
-      backdropFilter: "blur(10px)",
-      borderRadius: "16px",
-      display: "flex",
-      flexDirection: "column",
-      padding: "16px",
-      zIndex: "9999",
-      boxShadow: "0 8px 25px rgba(0,0,0,0.35)",
-      border: "1px solid rgba(255, 255, 255, 0.08)",
-      fontFamily: "'Segoe UI', sans-serif",
-      color: "#fff"
-    });
-
     panel.innerHTML = `
       <style>
+        #khanDestroyer-panel {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          width: 260px;
+          max-width: 90vw;
+          background: rgba(24, 24, 24, 0.85);
+          backdrop-filter: blur(10px);
+          border-radius: 18px;
+          padding: 16px;
+          z-index: 9999;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          font-family: 'Segoe UI', sans-serif;
+          color: #fff;
+          transition: all 0.3s ease;
+        }
         .khan-header {
-          font-size: 20px;
-          font-weight: 600;
-          margin-bottom: 12px;
-          text-align: center;
+          font-size: 22px;
+          font-weight: 700;
+          margin-bottom: 14px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
           user-select: none;
-          cursor: pointer;
         }
         .khan-toggle {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin: 10px 0;
+          margin: 12px 0;
         }
         .khan-label {
           display: flex;
           align-items: center;
-          gap: 6px;
+          gap: 8px;
+          font-size: 15px;
         }
         .khan-switch {
           position: relative;
@@ -109,24 +110,19 @@ class UI {
         .khan-slider {
           position: absolute;
           cursor: pointer;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: #555;
-          transition: .3s;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background: #444;
           border-radius: 24px;
+          transition: .3s;
         }
         .khan-slider:before {
-          position: absolute;
           content: "";
-          height: 18px;
-          width: 18px;
-          left: 3px;
-          bottom: 3px;
+          position: absolute;
+          height: 18px; width: 18px;
+          left: 3px; bottom: 3px;
           background: white;
-          transition: .3s;
           border-radius: 50%;
+          transition: .3s;
         }
         .khan-switch input:checked + .khan-slider {
           background: linear-gradient(135deg, #8e2de2, #4a00e0);
@@ -135,7 +131,7 @@ class UI {
           transform: translateX(24px);
         }
         .khan-speed {
-          margin-top: 15px;
+          margin-top: 16px;
         }
         .khan-speed input[type="range"] {
           width: 100%;
@@ -144,54 +140,87 @@ class UI {
         .khan-footer {
           font-size: 11px;
           text-align: center;
-          margin-top: 12px;
+          margin-top: 14px;
           opacity: 0.6;
         }
+        .khan-collapse-btn {
+          background: none;
+          border: none;
+          color: #aaa;
+          font-size: 18px;
+          cursor: pointer;
+          transition: color 0.2s;
+        }
+        .khan-collapse-btn:hover {
+          color: #fff;
+        }
+        .khan-collapsed #khanBody {
+          display: none;
+        }
+        .khan-collapsed {
+          width: 60px !important;
+          height: auto;
+          padding: 12px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .khan-collapsed .khan-header {
+          flex-direction: column;
+          font-size: 16px;
+          gap: 4px;
+        }
       </style>
-      <div class="khan-header">🚀 KhanDestroyer <small style="font-size:12px; opacity:0.6;">v${APP.ver}</small></div>
 
-      <div class="khan-toggle">
-        <div class="khan-label" title="Ativar ou desativar auto complete">
-          🤖 Auto Complete
+      <div class="khan-header">
+        <span>🚀</span>
+        <button class="khan-collapse-btn" title="Minimizar painél">☰</button>
+      </div>
+
+      <div id="khanBody">
+        <div class="khan-toggle">
+          <div class="khan-label" title="Auto Complete">🤖 Auto Complete</div>
+          <label class="khan-switch">
+            <input type="checkbox" id="autoCheck">
+            <span class="khan-slider"></span>
+          </label>
         </div>
-        <label class="khan-switch">
-          <input type="checkbox" id="autoCheck">
-          <span class="khan-slider"></span>
-        </label>
-      </div>
 
-      <div class="khan-toggle">
-        <div class="khan-label" title="Spoofar perguntas (ignorar o conteúdo)">
-          🎭 Question Spoof
+        <div class="khan-toggle">
+          <div class="khan-label" title="Question Spoof">🎭 Question Spoof</div>
+          <label class="khan-switch">
+            <input type="checkbox" id="spoofCheck" checked>
+            <span class="khan-slider"></span>
+          </label>
         </div>
-        <label class="khan-switch">
-          <input type="checkbox" id="spoofCheck" checked>
-          <span class="khan-slider"></span>
-        </label>
-      </div>
 
-      <div class="khan-toggle">
-        <div class="khan-label" title="Ativar modo escuro">
-          🌙 Dark Mode
+        <div class="khan-toggle">
+          <div class="khan-label" title="Dark Mode">🌙 Dark Mode</div>
+          <label class="khan-switch">
+            <input type="checkbox" id="darkModeCheck" checked>
+            <span class="khan-slider"></span>
+          </label>
         </div>
-        <label class="khan-switch">
-          <input type="checkbox" id="darkModeCheck" checked>
-          <span class="khan-slider"></span>
-        </label>
-      </div>
 
-      <div class="khan-speed" id="speedControlContainer" style="display:none;">
-        <label for="speedSlider">⏱️ Velocidade</label>
-        <input type="range" min="0" max="3" value="0" id="speedSlider">
-        <div id="speedValue" style="text-align:right;font-size:12px;opacity:0.6;">750ms</div>
-      </div>
+        <div class="khan-speed" id="speedControlContainer" style="display:none;">
+          <label for="speedSlider">⏱️ Velocidade</label>
+          <input type="range" min="0" max="3" value="0" id="speedSlider">
+          <div id="speedValue" style="text-align:right;font-size:12px;opacity:0.6;">750ms</div>
+        </div>
 
-      <div class="khan-footer">💻 por @iUnknownBr</div>
+        <div class="khan-footer">💻 por @iUnknownBr</div>
+      </div>
     `;
 
     document.body.appendChild(panel);
 
-    // --- Mesma lógica de eventos (pode manter seu código atual) ---
+    // Botão colapsar
+    const collapseBtn = panel.querySelector(".khan-collapse-btn");
+    collapseBtn.addEventListener("click", () => {
+      panel.classList.toggle("khan-collapsed");
+    });
+
+    // Eventos existentes aqui (autoCheck, spoofCheck, etc.)
   }
 }
 
