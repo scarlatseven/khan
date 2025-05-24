@@ -220,7 +220,85 @@ class UI {
       panel.classList.toggle("khan-collapsed");
     });
 
-    // Eventos existentes aqui (autoCheck, spoofCheck, etc.)
+    // Adicionar evento de clique ao cabeçalho para encolher/expandir o menu
+    const header = document.querySelector('.khandestroyer-header');
+    const content = document.querySelector('.khandestroyer-content');
+    
+    header.addEventListener('click', () => {
+      header.classList.toggle('collapsed');
+      content.classList.toggle('collapsed');
+      
+      // Salvar o estado do menu no localStorage
+      const isCollapsed = header.classList.contains('collapsed');
+      localStorage.setItem('khanDestroyer-collapsed', isCollapsed);
+      
+      // Mostrar toast informativo
+      sendToast(isCollapsed ? "🔼 Menu recolhido" : "🔽 Menu expandido", 1000);
+    });
+    
+    // Verificar se o menu estava recolhido anteriormente
+    const wasCollapsed = localStorage.getItem('khanDestroyer-collapsed') === 'true';
+    if (wasCollapsed) {
+      header.classList.add('collapsed');
+      content.classList.add('collapsed');
+    }
+    
+    // Setup event listeners
+    document.getElementById("autoCheck").onchange = event => {
+      APP.cfg.auto = event.target.checked;
+      document.getElementById("speedControlContainer").style.display = APP.cfg.auto ? "flex" : "none";
+      sendToast(APP.cfg.auto ? "✅ Auto Complete Enabled" : "❌ Auto Complete Disabled", 2000);
+    };
+    
+    // Configurar o slider de velocidade
+    const speedSlider = document.getElementById("speedSlider");
+    const speedValue = document.getElementById("speedValue");
+    
+    // Definir o valor inicial do slider
+    const initialIndex = APP.cfg.speedOptions.indexOf(APP.cfg.autoSpeed);
+    speedSlider.value = initialIndex >= 0 ? initialIndex : 0;
+    
+    // Adicionar evento de mudança ao slider
+    speedSlider.oninput = () => {
+      const index = parseInt(speedSlider.value);
+      const speed = APP.cfg.speedOptions[index];
+      APP.cfg.autoSpeed = speed;
+      speedValue.textContent = speed + "ms";
+    };
+    
+    // Adicionar evento de mudança completa para mostrar toast
+    speedSlider.onchange = () => {
+      const index = parseInt(speedSlider.value);
+      const speed = APP.cfg.speedOptions[index];
+      sendToast(`⏱️ Velocidade alterada para ${speed}ms`, 2000);
+    };
+
+    
+    document.getElementById("spoofCheck").onchange = event => {
+      APP.cfg.questionSpoof = event.target.checked;
+      sendToast(APP.cfg.questionSpoof ? "✅ Question Spoof Enabled" : "❌ Question Spoof Disabled", 2000);
+    };
+    
+    document.getElementById("darkModeCheck").onchange = event => {
+      APP.cfg.darkMode = event.target.checked;
+      if (typeof DarkReader !== 'undefined') {
+        if (APP.cfg.darkMode) {
+          DarkReader.enable();
+          sendToast("🌑 Dark Mode Enabled", 2000);
+        } else {
+          DarkReader.disable();
+          sendToast("☀️ Dark Mode Disabled", 2000);
+        }
+      } else {
+        console.error("DarkReader não está disponível");
+        sendToast("⚠️ Dark Mode não disponível. Recarregue a página.", 3000);
+      }
+    };
+    
+    // Ativar Dark Mode por padrão
+    if (APP.cfg.darkMode && typeof DarkReader !== 'undefined') {
+      DarkReader.enable();
+    }
   }
 }
 
